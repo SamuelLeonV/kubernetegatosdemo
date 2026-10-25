@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Michis del Cluster — kubernetegatosdemo</title>
+  <meta name="description" content="Demo web de gatos lista para desplegar en Kubernetes con Nginx.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <div>
+        <p class="brand">kubernetegatosdemo</p>
+        <h1>Michis del clúster</h1>
+        <p class="lede">Una web estática de gatos, servida con Nginx y lista para Kubernetes. Elige tu favorito y copia su nombre para tus manifiestos.</p>
+      </div>
+      <div class="header-card">
+        <dl>
+          <div><dt>Imagen</dt><dd>nginx:alpine</dd></div>
+          <div><dt>Réplicas</dt><dd id="replicas-hint">3</dd></div>
+          <div><dt>Puerto</dt><dd>80</dd></div>
+        </dl>
+        <button id="btn-michi" type="button">Mostrar un michi al azar</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section aria-labelledby="galeria-titulo">
+      <div class="section-head">
+        <h2 id="galeria-titulo">Galería felina</h2>
+        <p>Seis huéspedes permanentes del namespace <code>default</code>.</p>
+      </div>
+      <div class="grid" id="galeria"></div>
+    </section>
+
+    <section class="deploy" aria-labelledby="deploy-titulo">
+      <h2 id="deploy-titulo">Despliegue en Kubernetes</h2>
+      <ol>
+        <li>Construye la imagen: <code>docker build -t kubernetegatosdemo:latest .</code></li>
+        <li>Aplica los manifiestos: <code>kubectl apply -f k8s/</code></li>
+        <li>Abre el servicio: <code>kubectl port-forward svc/gatos-service 8080:80</code></li>
+      </ol>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p>Hecho con HTML + Nginx + Kubernetes. Demo educativa, imágenes de <a href="https://cataas.com">CATAAS</a>.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

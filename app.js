@@ -55,6 +55,61 @@ function mostrarIpVisitante() {
     .catch(function () { el.textContent = "no disponible"; });
 }
 
+function fondoAnimado() {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const canvas = document.getElementById("fondo");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+  const COLORES = ["#fb923c", "#f43f5e", "#eab308", "#22d3ee", "#4ade80", "#db2777"];
+  let W = 0, H = 0, partes = [];
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  function nueva(y0) {
+    return {
+      x: Math.random() * W,
+      y: y0 !== undefined ? y0 : Math.random() * H,
+      r: 3 + Math.random() * 9,
+      c: COLORES[Math.floor(Math.random() * COLORES.length)],
+      vy: 0.2 + Math.random() * 0.7,
+      vx: (Math.random() - 0.5) * 0.4,
+      a: 0.12 + Math.random() * 0.22
+    };
+  }
+
+  function init() {
+    resize();
+    partes = [];
+    const n = Math.min(90, Math.floor(W / 14));
+    for (let i = 0; i < n; i++) partes.push(nueva());
+  }
+
+  function frame() {
+    ctx.clearRect(0, 0, W, H);
+    for (let i = 0; i < partes.length; i++) {
+      const p = partes[i];
+      p.y -= p.vy;
+      p.x += p.vx;
+      if (p.y < -20) partes[i] = nueva(H + 20);
+      ctx.globalAlpha = p.a;
+      ctx.fillStyle = p.c;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(frame);
+  }
+
+  window.addEventListener("resize", init);
+  init();
+  frame();
+}
+
 document.getElementById("btn-michi").addEventListener("click", michiAlAzar);
 render();
 mostrarIpVisitante();
+fondoAnimado();

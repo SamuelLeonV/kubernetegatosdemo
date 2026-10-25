@@ -230,6 +230,45 @@ footer a { color: #fdba74; }
   .grid { grid-template-columns: 1fr; }
 }
 
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  background: rgba(67, 20, 7, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-overlay[hidden] { display: none; }
+
+.modal {
+  background: #fff;
+  border-top: 6px solid #ea580c;
+  border-radius: 12px;
+  max-width: 440px;
+  width: 100%;
+  padding: 26px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+.modal h2 {
+  margin: 0 0 8px;
+  font-size: 26px;
+  color: #c2410c;
+}
+
+.modal p {
+  margin: 0 0 18px;
+  color: var(--muted);
+}
+
+.modal button {
+  width: auto;
+  padding: 11px 22px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }
 }

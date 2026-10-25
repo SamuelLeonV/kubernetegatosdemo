@@ -109,7 +109,26 @@ function fondoAnimado() {
   frame();
 }
 
+function modalBienvenida() {
+  const overlay = document.getElementById("modal-bienvenida");
+  const cerrar = document.getElementById("modal-cerrar");
+  if (!overlay || !cerrar) return;
+  if (sessionStorage.getItem("bienvenida-vista")) return;
+
+  function hide() {
+    overlay.hidden = true;
+    sessionStorage.setItem("bienvenida-vista", "1");
+  }
+
+  overlay.hidden = false;
+  cerrar.focus();
+  cerrar.addEventListener("click", hide);
+  overlay.addEventListener("click", function (e) { if (e.target === overlay) hide(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !overlay.hidden) hide(); });
+}
+
 document.getElementById("btn-michi").addEventListener("click", michiAlAzar);
 render();
 mostrarIpVisitante();
 fondoAnimado();
+modalBienvenida();

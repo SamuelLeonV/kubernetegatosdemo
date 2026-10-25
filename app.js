@@ -47,5 +47,14 @@ function michiAlAzar() {
   btn.textContent = "Otro michi al azar (" + pick.nombre + ")";
 }
 
+function mostrarIpVisitante() {
+  const el = document.getElementById("visitante-ip");
+  fetch("https://api.ipify.org?format=json")
+    .then(function (r) { return r.json(); })
+    .then(function (d) { el.textContent = d.ip; })
+    .catch(function () { el.textContent = "no disponible"; });
+}
+
 document.getElementById("btn-michi").addEventListener("click", michiAlAzar);
 render();
+mostrarIpVisitante();
